@@ -1,0 +1,64 @@
+{
+    email rozart@gmail.com
+    acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+}
+
+photos.home.rozart.dev {
+    reverse_proxy localhost:3001
+}
+
+
+paperless.home.rozart.dev {
+    reverse_proxy localhost:8777
+}
+
+pdf.home.rozart.dev {
+    reverse_proxy localhost:3000
+}
+
+omada.home.rozart.dev {
+    reverse_proxy https://localhost:8043 {
+        transport http {
+            tls
+            tls_insecure_skip_verify
+        }
+    }
+}
+
+portainer.home.rozart.dev {
+    reverse_proxy https://localhost:9443 {
+        transport http {
+            tls
+            tls_insecure_skip_verify
+        }
+    }
+}
+
+proxmox.home.rozart.dev {
+    reverse_proxy https://192.168.0.40:8006 {
+        transport http {
+            tls
+            tls_insecure_skip_verify
+        }
+    }
+}
+
+synology.home.rozart.dev {
+    reverse_proxy 192.168.0.36:5000
+}
+
+pihole.home.rozart.dev {
+    reverse_proxy 192.168.0.31:8181/admin
+}
+
+ittools.home.rozart.dev {
+    reverse_proxy localhost:8282 
+}
+
+dashboard.home.rozart.dev {
+    reverse_proxy localhost:4000
+}
+
+uptime.home.rozart.dev {
+    reverse_proxy localhost:3005
+}

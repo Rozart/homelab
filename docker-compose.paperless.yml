@@ -1,0 +1,51 @@
+name: paperless
+
+networks:
+  home-network:
+    external: true
+
+services:
+  paperless-redis:
+    image: redis:7-alpine
+    container_name: paperless_redis
+    volumes:
+      - ~/docker/appdata/paperless/redis:/data
+    restart: always
+    networks:
+      - home-network
+
+  paperless-db:
+    image: postgres:15-alpine
+    container_name: paperless_db
+    volumes:
+      - ~/docker/appdata/paperless/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: paperless
+      POSTGRES_USER: paperless
+      POSTGRES_PASSWORD: paperless_password
+    restart: always
+    networks:
+      - home-network
+
+  paperless:
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    container_name: paperless
+    depends_on:
+      - paperless-db
+      - paperless-redis
+    ports:
+      - 8777:8000
+    volumes:
+      - ~/docker/appdata/paperless/data:/usr/src/paperless/data
+      - /mnt/nas/paperless/media:/usr/src/paperless/media
+      - /mnt/nas/paperless-consume:/usr/src/paperless/consume
+    environment:
+      PAPERLESS_REDIS: redis://paperless-redis:6379
+      PAPERLESS_DBHOST: paperless-db
+      PAPERLESS_TIME_ZONE: Europe/Warsaw
+      PAPERLESS_OCR_LANGUAGES: pol eng nld
+      USERMAP_UID: 1000
+      USERMAP_GID: 1000
+    restart: always
+    networks:
+      - home-network
