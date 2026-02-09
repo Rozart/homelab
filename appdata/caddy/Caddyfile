@@ -47,8 +47,17 @@ synology.home.rozart.dev {
     reverse_proxy 192.168.0.36:5000
 }
 
+sunshine.home.rozart.dev {
+    reverse_proxy https://192.168.0.102:47990 {
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}
+
 pihole.home.rozart.dev {
-    reverse_proxy 192.168.0.31:8181/admin
+    redir / /admin/ 308
+    reverse_proxy 192.168.0.31:8181
 }
 
 ittools.home.rozart.dev {
