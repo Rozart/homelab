@@ -1,2 +1,6 @@
 .env
-appdata
+
+appdata/*
+!appdata/caddy/
+!appdata/caddy/Caddyfile
+appdata/caddy/*
