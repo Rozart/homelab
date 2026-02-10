@@ -1,7 +1,7 @@
-name: bentopdf
 networks:
   home-network:
     external: true
+
 services:
   bentopdf:
     image: bentopdf/bentopdf:latest

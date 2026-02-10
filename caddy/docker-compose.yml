@@ -1,0 +1,13 @@
+services:
+  caddy:
+    image: slothcroissant/caddy-cloudflaredns:latest
+    container_name: caddy
+    restart: always
+    network_mode: host
+    volumes:
+      - ./appdata/Caddyfile:/etc/caddy/Caddyfile
+      - ./appdata/data:/data
+      - ./appdata/config:/config
+    environment:
+      TZ: ${TZ}
+      CLOUDFLARE_API_TOKEN: ${CLOUDFLARE_API_TOKEN}

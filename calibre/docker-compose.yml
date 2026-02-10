@@ -1,5 +1,3 @@
-name: calibre
-
 networks:
   home-network:
     external: true
@@ -9,13 +7,13 @@ services:
     image: lscr.io/linuxserver/calibre:latest
     container_name: calibre
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Warsaw
-      - PASSWORD=rozartcalibre123
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+      PASSWORD: ${CALIBRE_PASSWORD}
     volumes:
-      - ~/docker/appdata/calibre:/config
-      - /mnt/nas/calibre/Calibre Library:/books
+      - ./appdata/calibre:/config
+      - ${NAS_PATH}/calibre/Calibre Library:/books
     ports:
       - 8012:8080
     restart: always
@@ -26,13 +24,13 @@ services:
     image: lscr.io/linuxserver/calibre-web:latest
     container_name: calibre-web
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Warsaw
-      - DOCKER_MODS=linuxserver/mods:universal-calibre
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+      DOCKER_MODS: linuxserver/mods:universal-calibre
     volumes:
-      - ~/docker/appdata/calibre-web:/config
-      - /mnt/nas/calibre/Calibre Library:/books
+      - ./appdata/calibre-web:/config
+      - ${NAS_PATH}/calibre/Calibre Library:/books
     ports:
       - 8014:8083
     restart: always
