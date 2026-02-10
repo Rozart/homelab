@@ -1,0 +1,1 @@
+docker run -it -v /mnt/nas/photos:/import:ro -e IMMICH_INSTANCE_URL=https://192.168.0.46:3001/api -e IMMICH_API_KEY=tyxdoKg9rDUwAhV7A0sgvifjwPLG7R1XN6K8seyJTI ghcr.io/immich-app/immich-cli:latest --recursive /import

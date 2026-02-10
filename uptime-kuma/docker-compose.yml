@@ -1,5 +1,3 @@
-name: uptime-kuma
-
 networks:
   home-network:
     external: true
@@ -9,7 +7,7 @@ services:
     container_name: uptime-kuma
     image: louislam/uptime-kuma:latest
     volumes:
-      - ~/docker/appdata/uptime-kuma/data:/app/data
+      - ./appdata/data:/app/data
     ports:
       - "3005:3001"
     restart: always
