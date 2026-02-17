@@ -43,6 +43,15 @@ proxmox.home.rozart.dev {
     }
 }
 
+pbs.home.rozart.dev {
+    reverse_proxy https://192.168.0.37:8007 {
+        transport http {
+            tls
+            tls_insecure_skip_verify
+        }
+    }
+}
+
 synology.home.rozart.dev {
     reverse_proxy 192.168.0.36:5000
 }
@@ -74,4 +83,12 @@ dashboard.home.rozart.dev {
 
 uptime.home.rozart.dev {
     reverse_proxy localhost:3005
+}
+
+kopia.home.rozart.dev {
+    reverse_proxy localhost:51515
+}
+
+ha.home.rozart.dev {
+    reverse_proxy http://192.168.0.44:8123
 }

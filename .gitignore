@@ -6,7 +6,7 @@
 **/appdata/
 
 # Keep Caddyfile tracked
-!caddy/appdata/
-!caddy/appdata/Caddyfile
-caddy/appdata/*
-!caddy/appdata/Caddyfile
+!stacks/caddy/appdata/
+!stacks/caddy/appdata/Caddyfile
+stacks/caddy/appdata/*
+!stacks/caddy/appdata/Caddyfile
