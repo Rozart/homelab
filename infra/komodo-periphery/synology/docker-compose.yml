@@ -1,0 +1,14 @@
+services:
+  komodo-periphery:
+    image: ghcr.io/moghtech/komodo-periphery:latest
+    container_name: komodo-periphery
+    restart: unless-stopped
+    environment:
+      PERIPHERY_PASSKEYS: ${KOMODO_PASSKEY}
+      PERIPHERY_PORT: 8120
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc:/proc
+      - ./appdata/periphery:/etc/komodo
+    ports:
+      - "8120:8120"
