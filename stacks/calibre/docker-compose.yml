@@ -3,34 +3,18 @@ networks:
     external: true
 
 services:
-  calibre:
-    image: lscr.io/linuxserver/calibre:latest
-    container_name: calibre
+  calibre-web-automated:
+    image: crocodilestick/calibre-web-automated:latest
+    container_name: calibre-web-automated
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
       TZ: ${TZ}
-      PASSWORD: ${CALIBRE_PASSWORD}
+      NETWORK_SHARE_MODE: "true"
     volumes:
-      - ./appdata/calibre:/config
-      - ${NAS_PATH}/calibre/Calibre Library:/books
-    ports:
-      - 8012:8080
-    restart: always
-    networks:
-      - home-network
-
-  calibre-web:
-    image: lscr.io/linuxserver/calibre-web:latest
-    container_name: calibre-web
-    environment:
-      PUID: ${PUID}
-      PGID: ${PGID}
-      TZ: ${TZ}
-      DOCKER_MODS: linuxserver/mods:universal-calibre
-    volumes:
-      - ./appdata/calibre-web:/config
-      - ${NAS_PATH}/calibre/Calibre Library:/books
+      - ./appdata/config:/config
+      - ${NAS_PATH}/calibre/ingest:/cwa-book-ingest
+      - ${NAS_PATH}/calibre/library:/calibre-library
     ports:
       - 8014:8083
     restart: always

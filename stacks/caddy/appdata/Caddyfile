@@ -89,6 +89,10 @@ kopia.home.rozart.dev {
     reverse_proxy localhost:51515
 }
 
+calibre.home.rozart.dev {
+    reverse_proxy localhost:8014
+}
+
 ha.home.rozart.dev {
     reverse_proxy http://192.168.0.44:8123
 }
