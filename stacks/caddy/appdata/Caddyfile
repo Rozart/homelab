@@ -93,6 +93,10 @@ calibre.home.rozart.dev {
     reverse_proxy localhost:8014
 }
 
+shelfmark.home.rozart.dev {
+    reverse_proxy localhost:8084
+}
+
 ha.home.rozart.dev {
     reverse_proxy http://192.168.0.44:8123
 }

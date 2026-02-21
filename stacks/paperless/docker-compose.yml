@@ -25,12 +25,32 @@ services:
     networks:
       - home-network
 
+  paperless-tika:
+    image: apache/tika:latest
+    container_name: paperless_tika
+    restart: always
+    networks:
+      - home-network
+
+  paperless-gotenberg:
+    image: gotenberg/gotenberg:8
+    container_name: paperless_gotenberg
+    command:
+      - "gotenberg"
+      - "--chromium-disable-javascript=true"
+      - "--chromium-allow-list=file:///tmp/.*"
+    restart: always
+    networks:
+      - home-network
+
   paperless:
     image: ghcr.io/paperless-ngx/paperless-ngx:latest
     container_name: paperless
     depends_on:
       - paperless-db
       - paperless-redis
+      - paperless-tika
+      - paperless-gotenberg
     ports:
       - 8777:8000
     volumes:
@@ -40,8 +60,18 @@ services:
     environment:
       PAPERLESS_REDIS: redis://paperless-redis:6379
       PAPERLESS_DBHOST: paperless-db
+      PAPERLESS_TIKA_ENABLED: "true"
+      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg:3000
+      PAPERLESS_TIKA_ENDPOINT: http://paperless-tika:9998
       PAPERLESS_TIME_ZONE: ${TZ}
       PAPERLESS_OCR_LANGUAGES: ${PAPERLESS_OCR_LANGUAGES}
+      PAPERLESS_OCR_LANGUAGE: pol+eng+nld+ell
+      PAPERLESS_OCR_MODE: skip
+      PAPERLESS_OCR_CLEAN: clean
+      PAPERLESS_OCR_DESKEW: "true"
+      PAPERLESS_OCR_ROTATE_PAGES: "true"
+      PAPERLESS_OCR_OUTPUT_TYPE: pdfa
+      PAPERLESS_URL: https://paperless.home.rozart.dev
       USERMAP_UID: ${PUID}
       USERMAP_GID: ${PGID}
     restart: always

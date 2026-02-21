@@ -11,6 +11,7 @@ services:
       PGID: ${PGID}
       TZ: ${TZ}
       NETWORK_SHARE_MODE: "true"
+      HARDCOVER_TOKEN: ${HARDCOVER_TOKEN}
     volumes:
       - ./appdata/config:/config
       - ${NAS_PATH}/calibre/ingest:/cwa-book-ingest
