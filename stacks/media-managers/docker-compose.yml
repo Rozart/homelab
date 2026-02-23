@@ -38,7 +38,7 @@ services:
       - home-network
 
   bookshelf-ebooks:
-    image: ghcr.io/pennydreadful/bookshelf:latest
+    image: ghcr.io/pennydreadful/bookshelf:hardcover
     container_name: bookshelf-ebooks
     environment:
       PUID: ${PUID}
@@ -55,7 +55,7 @@ services:
       - home-network
 
   bookshelf-audiobooks:
-    image: ghcr.io/pennydreadful/bookshelf:latest
+    image: ghcr.io/pennydreadful/bookshelf:hardcover
     container_name: bookshelf-audiobooks
     environment:
       PUID: ${PUID}
