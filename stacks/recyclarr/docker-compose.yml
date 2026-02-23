@@ -1,0 +1,16 @@
+networks:
+  home-network:
+    external: true
+
+services:
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr:latest
+    container_name: recyclarr
+    environment:
+      TZ: ${TZ}
+      CRON_SCHEDULE: "@daily"
+    volumes:
+      - ./appdata/recyclarr:/config
+    restart: always
+    networks:
+      - home-network

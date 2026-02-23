@@ -1,0 +1,101 @@
+networks:
+  home-network:
+    external: true
+
+services:
+  nextcloud-db:
+    image: postgres:15-alpine
+    container_name: nextcloud_db
+    volumes:
+      - ./appdata/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${NEXTCLOUD_DB_NAME}
+      POSTGRES_USER: ${NEXTCLOUD_DB_USER}
+      POSTGRES_PASSWORD: ${NEXTCLOUD_DB_PASS}
+    restart: always
+    networks:
+      - home-network
+
+  nextcloud-redis:
+    image: redis:7-alpine
+    container_name: nextcloud_redis
+    volumes:
+      - ./appdata/redis:/data
+    restart: always
+    networks:
+      - home-network
+
+  nextcloud:
+    image: nextcloud:30-apache
+    container_name: nextcloud
+    depends_on:
+      - nextcloud-db
+      - nextcloud-redis
+    ports:
+      - 8880:80
+    volumes:
+      - ./appdata/html:/var/www/html
+      - ./appdata/data:/var/www/html/data
+      - ${NAS_PATH}/cloud/companies:/mnt/companies
+      - ${NAS_PATH}/cloud/private:/mnt/private
+      - ${NAS_PATH}/cloud/obsidian:/mnt/obsidian
+      - ${NAS_PATH}/paperless-consume:/mnt/scan-inbox
+      - ${NAS_PATH}/calibre/ingest:/mnt/books-ingest
+      - ${NAS_PATH}/photos-import:/mnt/photos-import
+    environment:
+      POSTGRES_HOST: nextcloud-db
+      POSTGRES_DB: ${NEXTCLOUD_DB_NAME}
+      POSTGRES_USER: ${NEXTCLOUD_DB_USER}
+      POSTGRES_PASSWORD: ${NEXTCLOUD_DB_PASS}
+      REDIS_HOST: nextcloud-redis
+      OVERWRITEPROTOCOL: https
+      OVERWRITEHOST: cloud.home.rozart.dev
+      TRUSTED_PROXIES: 172.16.0.0/12 192.168.0.0/16
+      APACHE_DISABLE_REWRITE_IP: 1
+      NEXTCLOUD_TRUSTED_DOMAINS: cloud.home.rozart.dev
+      TZ: ${TZ}
+    restart: always
+    networks:
+      - home-network
+
+  nextcloud-cron:
+    image: nextcloud:30-apache
+    container_name: nextcloud_cron
+    depends_on:
+      - nextcloud-db
+      - nextcloud-redis
+    volumes:
+      - ./appdata/html:/var/www/html
+      - ./appdata/data:/var/www/html/data
+      - ${NAS_PATH}/cloud/companies:/mnt/companies
+      - ${NAS_PATH}/cloud/private:/mnt/private
+      - ${NAS_PATH}/cloud/obsidian:/mnt/obsidian
+      - ${NAS_PATH}/paperless-consume:/mnt/scan-inbox
+      - ${NAS_PATH}/calibre/ingest:/mnt/books-ingest
+      - ${NAS_PATH}/photos-import:/mnt/photos-import
+    environment:
+      POSTGRES_HOST: nextcloud-db
+      POSTGRES_DB: ${NEXTCLOUD_DB_NAME}
+      POSTGRES_USER: ${NEXTCLOUD_DB_USER}
+      POSTGRES_PASSWORD: ${NEXTCLOUD_DB_PASS}
+      REDIS_HOST: nextcloud-redis
+      TZ: ${TZ}
+    command: /cron.sh
+    restart: always
+    networks:
+      - home-network
+
+  nextcloud-rclone:
+    image: rclone/rclone:latest
+    container_name: nextcloud_rclone
+    volumes:
+      - ./scripts/rclone-bisync.sh:/rclone-bisync.sh:ro
+      - ./appdata/rclone:/config/rclone
+      - ${NAS_PATH}/cloud/companies:/data
+    environment:
+      TZ: ${TZ}
+      RCLONE_BISYNC_INTERVAL: ${RCLONE_BISYNC_INTERVAL:-15m}
+    entrypoint: /rclone-bisync.sh
+    restart: always
+    networks:
+      - home-network

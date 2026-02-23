@@ -1,0 +1,18 @@
+networks:
+  home-network:
+    external: true
+
+services:
+  audiobookshelf:
+    image: ghcr.io/advplyr/audiobookshelf:latest
+    container_name: audiobookshelf
+    environment:
+      TZ: ${TZ}
+    volumes:
+      - ./appdata/audiobookshelf:/config
+      - /mnt/nas/media/audiobooks:/audiobooks
+    ports:
+      - 13378:80
+    restart: always
+    networks:
+      - home-network

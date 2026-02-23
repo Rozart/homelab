@@ -1,0 +1,34 @@
+networks:
+  home-network:
+    external: true
+
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+    volumes:
+      - ./appdata/jellyfin:/config
+      - /mnt/nas/media/movies:/data/media/movies:ro
+      - /mnt/nas/media/tv:/data/media/tv:ro
+    ports:
+      - 8096:8096
+    restart: always
+    networks:
+      - home-network
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    environment:
+      TZ: ${TZ}
+    volumes:
+      - ./appdata/jellyseerr:/app/config
+    ports:
+      - 5055:5055
+    restart: always
+    networks:
+      - home-network
