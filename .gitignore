@@ -5,6 +5,15 @@
 # Appdata directories (runtime data)
 **/appdata/
 
+# Keep Recyclarr config tracked
+!stacks/recyclarr/appdata/
+!stacks/recyclarr/appdata/recyclarr/
+!stacks/recyclarr/appdata/recyclarr/recyclarr.yml
+stacks/recyclarr/appdata/*
+!stacks/recyclarr/appdata/recyclarr/
+stacks/recyclarr/appdata/recyclarr/*
+!stacks/recyclarr/appdata/recyclarr/recyclarr.yml
+
 # Keep Caddyfile tracked
 !stacks/caddy/appdata/
 !stacks/caddy/appdata/Caddyfile

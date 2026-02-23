@@ -9,6 +9,8 @@ services:
     environment:
       TZ: ${TZ}
       CRON_SCHEDULE: "@daily"
+      RADARR_API_KEY: ${RADARR_API_KEY}
+      SONARR_API_KEY: ${SONARR_API_KEY}
     volumes:
       - ./appdata/recyclarr:/config
     restart: always

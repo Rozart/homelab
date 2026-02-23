@@ -1,0 +1,47 @@
+radarr:
+  uhd-bluray-web:
+    base_url: http://radarr:7878
+    api_key: !env_var RADARR_API_KEY
+
+    quality_definition:
+      type: movie
+
+    quality_profiles:
+      - trash_id: 64fb5f9858489bdac2af690e27c8f42f  # UHD Bluray + WEB
+        reset_unmatched_scores:
+          enabled: true
+
+    custom_format_groups:
+      add:
+        - trash_id: 1616617ab3a14397a2b2321bcbda44d1  # DV Boost
+        - trash_id: b29413a7487478fe98228ce79e5689e4  # HDR10+ Boost
+        - trash_id: f4f1474b963b24cf983455743aa9906c  # Movie Versions
+        - trash_id: 60f6d50cbd3cfc3e9a8c00e3a30c3114  # Streaming Services - Anime
+        - trash_id: b22449f789b16a4163b59f1b70cbc580  # Streaming Services - Asian
+        - trash_id: 088a792e0561c927fb396664b0db5c8f  # Streaming Services - Dutch
+        - trash_id: 9fc645b3cef52b149ec13ba3972245d1  # Streaming Services - Miscellaneous
+        - trash_id: f737e18b5824d6ebb2d57b957ae2fd6c  # Streaming Services - UK
+
+sonarr:
+  web-2160p:
+    base_url: http://sonarr:8989
+    api_key: !env_var SONARR_API_KEY
+
+    quality_definition:
+      type: series
+
+    quality_profiles:
+      - trash_id: d1498e7d189fbe6c7110ceaabb7473e6  # WEB-2160p
+        reset_unmatched_scores:
+          enabled: true
+
+    custom_format_groups:
+      add:
+        - trash_id: e0b2774083df4265f25c9e5bc6c80940  # DV Boost
+        - trash_id: 7d366c213e5c23a052b157356fac1921  # HDR10+ Boost
+        - trash_id: d920fd959d220306888f40b6f38e1578  # Season Packs
+        - trash_id: 35fb4585dcd9e2a5ac732e4309f5a45a  # Streaming Services - Asian
+        - trash_id: f60f4401ce880aad62e9d21c8bb6b91a  # Streaming Services - Dutch
+        - trash_id: 848fd356c200568fc5a6248150e7e7ea  # Streaming Services - French
+        - trash_id: 7832db22b71ab669458c17a2850d6913  # Streaming Services - Miscellaneous
+        - trash_id: ddab3095a5d2f436f369263840af34f9  # Streaming Services - UK
