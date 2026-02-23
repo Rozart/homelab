@@ -8,11 +8,13 @@
 # Keep Recyclarr config tracked
 !stacks/recyclarr/appdata/
 !stacks/recyclarr/appdata/recyclarr/
-!stacks/recyclarr/appdata/recyclarr/recyclarr.yml
+!stacks/recyclarr/appdata/recyclarr/configs/
 stacks/recyclarr/appdata/*
 !stacks/recyclarr/appdata/recyclarr/
 stacks/recyclarr/appdata/recyclarr/*
-!stacks/recyclarr/appdata/recyclarr/recyclarr.yml
+!stacks/recyclarr/appdata/recyclarr/configs/
+stacks/recyclarr/appdata/recyclarr/configs/*
+!stacks/recyclarr/appdata/recyclarr/configs/recyclarr.yml
 
 # Keep Caddyfile tracked
 !stacks/caddy/appdata/
