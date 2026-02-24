@@ -96,6 +96,7 @@ services:
       ABB_ENABLED: "true"
     volumes:
       - ./appdata/shelfmark:/config
+      - /mnt/downloads:/data/downloads
       - ${NAS_PATH}/calibre/ingest:/books
       - ${NAS_PATH}/media/audiobooks:/audiobooks
     restart: always
