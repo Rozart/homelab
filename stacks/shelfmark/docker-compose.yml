@@ -16,10 +16,19 @@ services:
       FLASK_PORT: 8084
       USING_TOR: "true"
       INGEST_DIR: /books
+      DESTINATION_AUDIOBOOK: /audiobooks
+      PROWLARR_URL: http://prowlarr:9696
+      PROWLARR_API_KEY: ${PROWLARR_API_KEY}
+      QBITTORRENT_URL: http://gluetun:8080
+      QBITTORRENT_USERNAME: ${QBITTORRENT_USERNAME}
+      QBITTORRENT_PASSWORD: ${QBITTORRENT_PASSWORD}
+      QBITTORRENT_CATEGORY: shelfmark-ebooks
+      QBITTORRENT_CATEGORY_AUDIOBOOK: shelfmark-audiobooks
+      ABB_ENABLED: "true"
     volumes:
       - ./appdata/config:/config
       - ${NAS_PATH}/calibre/ingest:/books
-      - ${CWA_APP_DB}:/auth/app.db:ro
+      - ${NAS_PATH}/media/audiobooks:/audiobooks
     ports:
       - 8084:8084
     restart: always

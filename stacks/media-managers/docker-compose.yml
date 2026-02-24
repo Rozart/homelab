@@ -37,40 +37,6 @@ services:
     networks:
       - home-network
 
-  bookshelf-ebooks:
-    image: ghcr.io/pennydreadful/bookshelf:hardcover
-    container_name: bookshelf-ebooks
-    environment:
-      PUID: ${PUID}
-      PGID: ${PGID}
-      TZ: ${TZ}
-    volumes:
-      - ./appdata/bookshelf-ebooks:/config
-      - /mnt/downloads:/data/downloads
-      - /mnt/nas/media/ebooks:/data/media/ebooks
-    ports:
-      - 8787:8787
-    restart: always
-    networks:
-      - home-network
-
-  bookshelf-audiobooks:
-    image: ghcr.io/pennydreadful/bookshelf:hardcover
-    container_name: bookshelf-audiobooks
-    environment:
-      PUID: ${PUID}
-      PGID: ${PGID}
-      TZ: ${TZ}
-    volumes:
-      - ./appdata/bookshelf-audiobooks:/config
-      - /mnt/downloads:/data/downloads
-      - /mnt/nas/media/audiobooks:/data/media/audiobooks
-    ports:
-      - 8788:8787
-    restart: always
-    networks:
-      - home-network
-
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
