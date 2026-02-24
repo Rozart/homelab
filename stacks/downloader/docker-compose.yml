@@ -93,6 +93,11 @@ services:
       QBITTORRENT_PASSWORD: ${QBITTORRENT_PASSWORD}
       QBITTORRENT_CATEGORY: shelfmark-ebooks
       QBITTORRENT_CATEGORY_AUDIOBOOK: shelfmark-audiobooks
+      PROWLARR_USENET_CLIENT: sabnzbd
+      SABNZBD_URL: http://localhost:8085
+      SABNZBD_API_KEY: ${SABNZBD_API_KEY}
+      SABNZBD_CATEGORY: shelfmark-ebooks
+      SABNZBD_CATEGORY_AUDIOBOOK: shelfmark-audiobooks
       ABB_ENABLED: "true"
     volumes:
       - ./appdata/shelfmark:/config
