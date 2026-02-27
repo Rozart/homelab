@@ -10,8 +10,8 @@ services:
       TZ: ${TZ}
     volumes:
       - ./appdata/pinchflat:/config
-      - ${NAS_PATH}/media/youtube:/downloads
-      - ${NAS_PATH}/media/podcasts:/podcasts
+      - ${NAS_PATH}/media/youtube:/downloads/youtube
+      - ${NAS_PATH}/media/podcasts:/downloads/podcasts
     ports:
       - 8945:8945
     restart: always
