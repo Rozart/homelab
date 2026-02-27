@@ -1,0 +1,19 @@
+networks:
+  home-network:
+    external: true
+
+services:
+  pinchflat:
+    image: ghcr.io/kieraneglin/pinchflat:latest
+    container_name: pinchflat
+    environment:
+      TZ: ${TZ}
+    volumes:
+      - ./appdata/pinchflat:/config
+      - ${NAS_PATH}/media/youtube:/downloads
+      - ${NAS_PATH}/media/podcasts:/podcasts
+    ports:
+      - 8945:8945
+    restart: always
+    networks:
+      - home-network
