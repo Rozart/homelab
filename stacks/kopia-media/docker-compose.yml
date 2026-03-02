@@ -1,0 +1,45 @@
+networks:
+  home-network:
+    external: true
+
+services:
+  kopia:
+    image: kopia/kopia:latest
+    container_name: kopia-media
+    restart: unless-stopped
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        /scripts/init-repo.sh && \
+        exec kopia server start \
+          --address=0.0.0.0:51515 \
+          --insecure \
+          --server-username="$$KOPIA_SERVER_USERNAME" \
+          --server-password="$$KOPIA_SERVER_PASSWORD" \
+          --without-password
+    environment:
+      TZ: ${TZ}
+      KOPIA_PASSWORD: ${KOPIA_PASSWORD}
+      KOPIA_SERVER_USERNAME: ${KOPIA_SERVER_USERNAME}
+      KOPIA_SERVER_PASSWORD: ${KOPIA_SERVER_PASSWORD}
+      KOPIA_CONFIG_PATH: /app/config/repository.config
+      KOPIA_CACHE_DIRECTORY: /app/cache
+      KOPIA_LOG_DIR: /app/logs
+    volumes:
+      # Kopia state
+      - ./appdata/config:/app/config
+      - ./appdata/cache:/app/cache
+      - ./appdata/logs:/app/logs
+      # Backup destination (same NAS repo as docker-host)
+      - ${NAS_BACKUP_PATH}:/backup-repo
+      # Scripts
+      - ./scripts:/scripts:ro
+      # Docker socket for pre-backup DB dumps
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker:ro
+      # Source: media-host stacks (read-only)
+      - ${STACKS_ROOT}:/stacks:ro
+    ports:
+      - "51515:51515"
+    networks:
+      - home-network
