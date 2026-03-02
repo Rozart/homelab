@@ -12,9 +12,9 @@ services:
       TZ: ${TZ}
     volumes:
       - ./appdata/jellyfin:/config
-      - /mnt/nas/media/movies:/data/media/movies:ro
-      - /mnt/nas/media/tv:/data/media/tv:ro
-      - /mnt/nas/media/youtube:/data/media/youtube:ro
+      - ${NAS_PATH}/media/movies:/data/media/movies:ro
+      - ${NAS_PATH}/media/tv:/data/media/tv:ro
+      - ${NAS_PATH}/media/youtube:/data/media/youtube:ro
     ports:
       - 8096:8096
     restart: always

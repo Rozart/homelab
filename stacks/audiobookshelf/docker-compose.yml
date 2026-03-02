@@ -10,8 +10,8 @@ services:
       TZ: ${TZ}
     volumes:
       - ./appdata/audiobookshelf:/config
-      - /mnt/nas/media/audiobooks:/audiobooks
-      - /mnt/nas/media/podcasts:/podcasts
+      - ${NAS_PATH}/media/audiobooks:/audiobooks
+      - ${NAS_PATH}/media/podcasts:/podcasts
     ports:
       - 13378:80
     restart: always

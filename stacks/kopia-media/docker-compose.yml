@@ -6,6 +6,7 @@ services:
   kopia:
     image: kopia/kopia:latest
     container_name: kopia-media
+    hostname: roz-media-host
     restart: unless-stopped
     entrypoint: ["/bin/sh", "-c"]
     command:

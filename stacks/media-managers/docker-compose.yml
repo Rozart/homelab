@@ -13,7 +13,7 @@ services:
     volumes:
       - ./appdata/radarr:/config
       - /mnt/downloads:/data/downloads
-      - /mnt/nas/media/movies:/data/media/movies
+      - ${NAS_PATH}/media/movies:/data/media/movies
     ports:
       - 7878:7878
     restart: always
@@ -30,7 +30,7 @@ services:
     volumes:
       - ./appdata/sonarr:/config
       - /mnt/downloads:/data/downloads
-      - /mnt/nas/media/tv:/data/media/tv
+      - ${NAS_PATH}/media/tv:/data/media/tv
     ports:
       - 8989:8989
     restart: always
@@ -46,8 +46,8 @@ services:
       TZ: ${TZ}
     volumes:
       - ./appdata/bazarr:/config
-      - /mnt/nas/media/movies:/data/media/movies
-      - /mnt/nas/media/tv:/data/media/tv
+      - ${NAS_PATH}/media/movies:/data/media/movies
+      - ${NAS_PATH}/media/tv:/data/media/tv
     ports:
       - 6767:6767
     restart: always
