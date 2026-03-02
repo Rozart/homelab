@@ -92,6 +92,8 @@ services:
       - ./scripts/rclone-bisync.sh:/rclone-bisync.sh:ro
       - ./appdata/rclone:/config/rclone
       - ${NAS_PATH}/cloud/companies:/data
+    ports:
+      - 5572:5572
     environment:
       TZ: ${TZ}
       RCLONE_BISYNC_INTERVAL: ${RCLONE_BISYNC_INTERVAL:-15m}

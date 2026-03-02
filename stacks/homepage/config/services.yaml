@@ -1,0 +1,240 @@
+- Media:
+    - Jellyfin:
+        icon: jellyfin.png
+        href: https://jellyfin.home.rozart.dev
+        siteMonitor: http://192.168.0.49:8096
+        description: Media streaming
+        widget:
+          type: jellyfin
+          url: http://192.168.0.49:8096
+          key: "{{HOMEPAGE_VAR_JELLYFIN_KEY}}"
+          enableBlocks: true
+          enableNowPlaying: true
+
+    - Jellyseerr:
+        icon: jellyseerr.png
+        href: https://requests.home.rozart.dev
+        siteMonitor: http://192.168.0.49:5055
+        description: Media requests
+        widget:
+          type: jellyseerr
+          url: http://192.168.0.49:5055
+          key: "{{HOMEPAGE_VAR_JELLYFIN_KEY}}"
+
+    - Audiobookshelf:
+        icon: audiobookshelf.png
+        href: https://abs.home.rozart.dev
+        siteMonitor: http://192.168.0.49:13378
+        description: Audiobooks & podcasts
+        widget:
+          type: audiobookshelf
+          url: http://192.168.0.49:13378
+          key: "{{HOMEPAGE_VAR_AUDIOBOOKSHELF_KEY}}"
+
+    - Calibre Web:
+        icon: calibre-web.png
+        href: https://calibre.home.rozart.dev
+        siteMonitor: http://calibre-web-automated:8083
+        description: E-book library
+        widget:
+          type: calibreweb
+          url: http://calibre-web-automated:8083
+          username: "{{HOMEPAGE_VAR_CALIBREWEB_USER}}"
+          password: "{{HOMEPAGE_VAR_CALIBREWEB_PASS}}"
+
+    - Pinchflat:
+        icon: pinchflat.png
+        href: https://pinchflat.home.rozart.dev
+        siteMonitor: http://192.168.0.49:8945
+        description: YouTube downloader
+
+- Downloads & Indexers:
+    - qBittorrent:
+        icon: qbittorrent.png
+        href: https://qbit.home.rozart.dev
+        siteMonitor: http://192.168.0.49:8080
+        description: Torrent client
+        widget:
+          type: qbittorrent
+          url: http://192.168.0.49:8080
+          username: "{{HOMEPAGE_VAR_QBIT_USER}}"
+          password: "{{HOMEPAGE_VAR_QBIT_PASS}}"
+
+    - SABnzbd:
+        icon: sabnzbd.png
+        href: https://sabnzbd.home.rozart.dev
+        siteMonitor: http://192.168.0.49:8085
+        description: Usenet client
+        widget:
+          type: sabnzbd
+          url: http://192.168.0.49:8085
+          key: "{{HOMEPAGE_VAR_SABNZBD_KEY}}"
+
+    - Prowlarr:
+        icon: prowlarr.png
+        href: https://prowlarr.home.rozart.dev
+        siteMonitor: http://192.168.0.49:9696
+        description: Indexer manager
+        widget:
+          type: prowlarr
+          url: http://192.168.0.49:9696
+          key: "{{HOMEPAGE_VAR_PROWLARR_KEY}}"
+
+    - Sonarr:
+        icon: sonarr.png
+        href: https://sonarr.home.rozart.dev
+        siteMonitor: http://192.168.0.49:8989
+        description: TV series
+        widget:
+          type: sonarr
+          url: http://192.168.0.49:8989
+          key: "{{HOMEPAGE_VAR_SONARR_KEY}}"
+          enableQueue: true
+
+    - Radarr:
+        icon: radarr.png
+        href: https://radarr.home.rozart.dev
+        siteMonitor: http://192.168.0.49:7878
+        description: Movies
+        widget:
+          type: radarr
+          url: http://192.168.0.49:7878
+          key: "{{HOMEPAGE_VAR_RADARR_KEY}}"
+          enableQueue: true
+
+    - Bazarr:
+        icon: bazarr.png
+        href: https://bazarr.home.rozart.dev
+        siteMonitor: http://192.168.0.49:6767
+        description: Subtitles
+
+    - Shelfmark:
+        icon: mdi-bookshelf
+        href: https://shelfmark.home.rozart.dev
+        siteMonitor: http://192.168.0.49:8084
+        description: Book downloader
+
+- Productivity:
+    - Nextcloud:
+        icon: nextcloud.png
+        href: https://cloud.home.rozart.dev
+        siteMonitor: http://nextcloud:80
+        description: Cloud storage & sync
+        widget:
+          type: nextcloud
+          url: http://nextcloud:80
+          username: "{{HOMEPAGE_VAR_NEXTCLOUD_USER}}"
+          password: "{{HOMEPAGE_VAR_NEXTCLOUD_PASS}}"
+
+    - Paperless-ngx:
+        icon: paperless-ngx.png
+        href: https://paperless.home.rozart.dev
+        siteMonitor: http://paperless:8000
+        description: Document management
+        widget:
+          type: paperlessngx
+          url: http://paperless:8000
+          key: "{{HOMEPAGE_VAR_PAPERLESS_KEY}}"
+
+    - Immich:
+        icon: immich.png
+        href: https://photos.home.rozart.dev
+        siteMonitor: http://immich-server:2283
+        description: Photo management
+        widget:
+          type: immich
+          url: http://immich-server:2283
+          key: "{{HOMEPAGE_VAR_IMMICH_KEY}}"
+          version: 2
+
+    - IT-Tools:
+        icon: it-tools.png
+        href: https://ittools.home.rozart.dev
+        siteMonitor: http://it-tools:80
+        description: Developer utilities
+
+    - BentoPDF:
+        icon: mdi-file-pdf-box
+        href: https://pdf.home.rozart.dev
+        siteMonitor: http://bentopdf:8080
+        description: PDF converter
+
+- Infrastructure:
+    - Proxmox:
+        icon: proxmox.png
+        href: https://proxmox.home.rozart.dev
+        description: Hypervisor
+        widget:
+          type: proxmox
+          url: https://192.168.0.40:8006
+          username: "{{HOMEPAGE_VAR_PROXMOX_USER}}"
+          password: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}"
+
+    - Uptime Kuma:
+        icon: uptime-kuma.png
+        href: https://uptime.home.rozart.dev
+        siteMonitor: http://uptime-kuma:3001
+        description: Uptime monitoring
+        widget:
+          type: uptimekuma
+          url: http://uptime-kuma:3001
+          slug: "{{HOMEPAGE_VAR_UPTIMEKUMA_SLUG}}"
+
+    - Kopia:
+        icon: kopia.png
+        href: https://kopia.home.rozart.dev
+        siteMonitor: http://kopia:51515
+        description: Backup snapshots
+        widget:
+          type: kopia
+          url: http://kopia:51515
+          username: "{{HOMEPAGE_VAR_KOPIA_USER}}"
+          password: "{{HOMEPAGE_VAR_KOPIA_PASS}}"
+
+    - Komodo:
+        icon: mdi-sail-boat
+        href: https://komodo.home.rozart.dev
+        siteMonitor: http://komodo-core:9120
+        description: Stack orchestration
+
+    - Home Assistant:
+        icon: home-assistant.png
+        href: https://ha.home.rozart.dev
+        ping: 192.168.0.44
+        description: Home automation
+
+- Network & Gaming:
+    - Omada Controller:
+        icon: omada.png
+        href: https://omada.home.rozart.dev
+        ping: 192.168.0.49
+        description: Network management
+
+    - Pi-hole:
+        icon: pi-hole.png
+        href: https://pihole.home.rozart.dev
+        ping: 192.168.0.31
+        description: DNS & ad blocking
+
+    - Sunshine:
+        icon: mdi-gamepad-variant
+        href: https://sunshine.home.rozart.dev
+        ping: 192.168.0.102
+        description: Game streaming PC
+
+- Storage:
+    - Synology NAS:
+        icon: synology-dsm.png
+        href: https://synology.home.rozart.dev
+        description: NAS storage & resources
+        widget:
+          type: diskstation
+          url: http://192.168.0.36:5000
+          username: "{{HOMEPAGE_VAR_SYNOLOGY_USER}}"
+          password: "{{HOMEPAGE_VAR_SYNOLOGY_PASS}}"
+
+    - PBS:
+        icon: proxmox.png
+        href: https://pbs.home.rozart.dev
+        ping: 192.168.0.37
+        description: Proxmox Backup Server

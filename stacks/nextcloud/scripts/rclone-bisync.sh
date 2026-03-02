@@ -16,6 +16,10 @@ if [ ! -f "$BISYNC_CONF" ]; then
   exit 1
 fi
 
+# Start rclone web GUI in background
+echo "Starting rclone web GUI on :5572..."
+rclone rcd --rc-web-gui --rc-addr=:5572 --rc-no-auth &
+
 echo "Starting bisync loop"
 while true; do
   while IFS='|' read -r remote_path local_folder; do

@@ -133,6 +133,47 @@ Mount Nextcloud as a network drive in Finder for drag-and-drop without syncing e
 2. Enter: `https://cloud.home.rozart.dev/remote.php/dav/files/<your-username>/`
 3. Enter Nextcloud credentials
 
+## Rclone Web GUI
+
+The rclone sidecar runs a web GUI on port 5572 (no auth), accessible via `nextcloud-rclone.home.rozart.dev`.
+
+## Troubleshooting
+
+### "cannot find prior Path1 or Path2 listings"
+
+Bisync cache was lost (container recreated, first run, or prior critical error). Fix with `--resync`:
+
+```bash
+docker exec nextcloud_rclone rclone bisync "<remote>:<path>" "/data/<local-folder>/" --resync --conflict-resolve newer -v
+```
+
+### "empty token found" / OAuth expired
+
+The Google Drive OAuth token expired or is missing. Re-authorize:
+
+1. On a machine with a browser:
+
+   ```bash
+   rclone authorize "drive" "<client-id>" "<client-secret>"
+   ```
+
+2. In the container:
+
+   ```bash
+   docker exec -it nextcloud_rclone rclone config reconnect <remote-name>:
+   ```
+
+   Paste the token from step 1 when prompted.
+
+### "config.php not readable" / data directory errors after restart
+
+The official Nextcloud image runs as `www-data` (uid 33), not PUID/PGID. If files get owned by the host user after an update or recreate, fix ownership:
+
+```bash
+sudo chown -R 33:33 appdata/html appdata/data
+docker restart nextcloud nextcloud_cron
+```
+
 ## Verification
 
 - [ ] `https://cloud.home.rozart.dev` — login works

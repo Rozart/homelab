@@ -1,0 +1,38 @@
+title: Homelab
+theme: dark
+color: slate
+iconStyle: theme
+statusStyle: dot
+
+headerStyle: boxedWidgets
+
+quicklaunch:
+  searchDescriptions: true
+  hideInternetSearch: true
+  showSearchSuggestions: true
+
+layout:
+  Media:
+    style: row
+    columns: 3
+    header: true
+  Downloads & Indexers:
+    style: row
+    columns: 3
+    header: true
+  Productivity:
+    style: row
+    columns: 3
+    header: true
+  Infrastructure:
+    style: row
+    columns: 3
+    header: true
+  Network & Gaming:
+    style: row
+    columns: 3
+    header: true
+  Storage:
+    style: row
+    columns: 2
+    header: true

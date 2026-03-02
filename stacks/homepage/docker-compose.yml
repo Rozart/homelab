@@ -1,0 +1,43 @@
+networks:
+  home-network:
+    external: true
+
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    environment:
+      TZ: ${TZ}
+      PUID: ${PUID}
+      PGID: ${PGID}
+      HOMEPAGE_ALLOWED_HOSTS: dashboard.home.rozart.dev
+      # API keys injected as env vars, referenced in config as {{HOMEPAGE_VAR_*}}
+      HOMEPAGE_VAR_JELLYFIN_KEY: ${JELLYFIN_API_KEY}
+      HOMEPAGE_VAR_SONARR_KEY: ${SONARR_API_KEY}
+      HOMEPAGE_VAR_RADARR_KEY: ${RADARR_API_KEY}
+      HOMEPAGE_VAR_PROWLARR_KEY: ${PROWLARR_API_KEY}
+      HOMEPAGE_VAR_SABNZBD_KEY: ${SABNZBD_API_KEY}
+      HOMEPAGE_VAR_QBIT_USER: ${QBITTORRENT_USERNAME}
+      HOMEPAGE_VAR_QBIT_PASS: ${QBITTORRENT_PASSWORD}
+      HOMEPAGE_VAR_PROXMOX_USER: ${PROXMOX_API_USER}
+      HOMEPAGE_VAR_PROXMOX_TOKEN: ${PROXMOX_API_TOKEN}
+      HOMEPAGE_VAR_IMMICH_KEY: ${IMMICH_API_KEY}
+      HOMEPAGE_VAR_PAPERLESS_KEY: ${PAPERLESS_API_KEY}
+      HOMEPAGE_VAR_NEXTCLOUD_USER: ${NEXTCLOUD_USERNAME}
+      HOMEPAGE_VAR_NEXTCLOUD_PASS: ${NEXTCLOUD_PASSWORD}
+      HOMEPAGE_VAR_AUDIOBOOKSHELF_KEY: ${AUDIOBOOKSHELF_API_KEY}
+      HOMEPAGE_VAR_CALIBREWEB_USER: ${CALIBREWEB_USERNAME}
+      HOMEPAGE_VAR_CALIBREWEB_PASS: ${CALIBREWEB_PASSWORD}
+      HOMEPAGE_VAR_KOPIA_USER: ${KOPIA_USERNAME}
+      HOMEPAGE_VAR_KOPIA_PASS: ${KOPIA_PASSWORD}
+      HOMEPAGE_VAR_SYNOLOGY_USER: ${SYNOLOGY_USERNAME}
+      HOMEPAGE_VAR_SYNOLOGY_PASS: ${SYNOLOGY_PASSWORD}
+      HOMEPAGE_VAR_UPTIMEKUMA_SLUG: ${UPTIMEKUMA_SLUG}
+    ports:
+      - 3030:3000
+    volumes:
+      - ./config:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: always
+    networks:
+      - home-network

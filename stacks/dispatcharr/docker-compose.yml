@@ -1,0 +1,35 @@
+networks:
+  home-network:
+    external: true
+
+services:
+  dispatcharr-vpn:
+    image: qmcgaw/gluetun:latest
+    container_name: dispatcharr-vpn
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      VPN_SERVICE_PROVIDER: mullvad
+      VPN_TYPE: wireguard
+      WIREGUARD_PRIVATE_KEY: ${WIREGUARD_PRIVATE_KEY}
+      WIREGUARD_ADDRESSES: ${WIREGUARD_ADDRESSES}
+      SERVER_COUNTRIES: ${SERVER_COUNTRIES}
+    ports:
+      - 9191:9191   # Dispatcharr WebUI
+    restart: always
+    networks:
+      - home-network
+
+  dispatcharr:
+    image: ghcr.io/dispatcharr/dispatcharr:latest
+    container_name: dispatcharr
+    network_mode: service:dispatcharr-vpn
+    depends_on:
+      - dispatcharr-vpn
+    volumes:
+      - ./appdata:/data
+    environment:
+      TZ: ${TZ}
+    restart: always

@@ -1,0 +1,10 @@
+- Management:
+    - Proxmox:
+        - icon: proxmox.png
+          href: https://proxmox.home.rozart.dev
+    - Synology DSM:
+        - icon: synology-dsm.png
+          href: https://synology.home.rozart.dev
+    - PBS:
+        - icon: proxmox.png
+          href: https://pbs.home.rozart.dev
