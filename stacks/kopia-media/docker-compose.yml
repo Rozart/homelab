@@ -17,7 +17,8 @@ services:
           --insecure \
           --server-username="$$KOPIA_SERVER_USERNAME" \
           --server-password="$$KOPIA_SERVER_PASSWORD" \
-          --without-password
+          --without-password \
+          --disable-csrf-token-checks
     environment:
       TZ: ${TZ}
       KOPIA_PASSWORD: ${KOPIA_PASSWORD}

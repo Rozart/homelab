@@ -19,7 +19,7 @@
         widget:
           type: jellyseerr
           url: http://192.168.0.49:5055
-          key: "{{HOMEPAGE_VAR_JELLYFIN_KEY}}"
+          key: "{{HOMEPAGE_VAR_JELLYSEERR_KEY}}"
 
     - Audiobookshelf:
         icon: audiobookshelf.png
@@ -47,6 +47,17 @@
         href: https://pinchflat.home.rozart.dev
         siteMonitor: http://192.168.0.49:8945
         description: YouTube downloader
+
+    - Dispatcharr:
+        icon: mdi-television-classic
+        href: https://dispatcharr.home.rozart.dev
+        siteMonitor: http://192.168.0.49:9191
+        description: IPTV proxy & EPG
+        widget:
+          type: dispatcharr
+          url: http://192.168.0.49:9191
+          username: "{{HOMEPAGE_VAR_DISPATCHARR_USER}}"
+          password: "{{HOMEPAGE_VAR_DISPATCHARR_PASS}}"
 
 - Downloads & Indexers:
     - qBittorrent:
@@ -107,6 +118,10 @@
         href: https://bazarr.home.rozart.dev
         siteMonitor: http://192.168.0.49:6767
         description: Subtitles
+        widget:
+          type: bazarr
+          url: http://192.168.0.49:6767
+          key: "{{HOMEPAGE_VAR_BAZARR_KEY}}"
 
     - Shelfmark:
         icon: mdi-bookshelf
@@ -153,6 +168,16 @@
         siteMonitor: http://it-tools:80
         description: Developer utilities
 
+    - Linkwarden:
+        icon: linkwarden.png
+        href: https://linkwarden.home.rozart.dev
+        siteMonitor: http://linkwarden:3000
+        description: Bookmark manager
+        widget:
+          type: linkwarden
+          url: http://linkwarden:3000
+          key: "{{HOMEPAGE_VAR_LINKWARDEN_KEY}}"
+
     - BentoPDF:
         icon: mdi-file-pdf-box
         href: https://pdf.home.rozart.dev
@@ -169,6 +194,7 @@
           url: https://192.168.0.40:8006
           username: "{{HOMEPAGE_VAR_PROXMOX_USER}}"
           password: "{{HOMEPAGE_VAR_PROXMOX_TOKEN}}"
+          fields: ["vms", "lxc", "resources.cpu", "resources.mem"]
 
     - Uptime Kuma:
         icon: uptime-kuma.png
@@ -191,36 +217,162 @@
           username: "{{HOMEPAGE_VAR_KOPIA_USER}}"
           password: "{{HOMEPAGE_VAR_KOPIA_PASS}}"
 
+    - Caddy:
+        icon: caddy.png
+        href: https://dashboard.home.rozart.dev
+        siteMonitor: http://192.168.0.46:2019
+        description: Reverse proxy
+        widget:
+          type: caddy
+          url: http://192.168.0.46:2019
+
     - Komodo:
         icon: mdi-sail-boat
         href: https://komodo.home.rozart.dev
-        siteMonitor: http://komodo-core:9120
+        siteMonitor: https://komodo.home.rozart.dev
         description: Stack orchestration
+        widget:
+          type: komodo
+          url: https://komodo.home.rozart.dev
+          key: "{{HOMEPAGE_VAR_KOMODO_KEY}}"
+          secret: "{{HOMEPAGE_VAR_KOMODO_SECRET}}"
+
+    - Nextcloud Rclone:
+        icon: rclone.png
+        href: https://nextcloud-rclone.home.rozart.dev
+        siteMonitor: http://nextcloud_rclone:5572
+        description: Google Drive bisync
 
     - Home Assistant:
         icon: home-assistant.png
         href: https://ha.home.rozart.dev
-        ping: 192.168.0.44
+        siteMonitor: http://192.168.0.44:8123
         description: Home automation
+        widget:
+          type: homeassistant
+          url: http://192.168.0.44:8123
+          key: "{{HOMEPAGE_VAR_HA_KEY}}"
 
 - Network & Gaming:
     - Omada Controller:
         icon: omada.png
         href: https://omada.home.rozart.dev
-        ping: 192.168.0.49
+        siteMonitor: https://omada.home.rozart.dev
         description: Network management
+        widget:
+          type: omada
+          url: https://omada.home.rozart.dev
+          username: "{{HOMEPAGE_VAR_OMADA_USER}}"
+          password: "{{HOMEPAGE_VAR_OMADA_PASS}}"
+          site: Default
 
     - Pi-hole:
         icon: pi-hole.png
         href: https://pihole.home.rozart.dev
-        ping: 192.168.0.31
+        siteMonitor: http://192.168.0.31:80
         description: DNS & ad blocking
+        widget:
+          type: pihole
+          url: http://192.168.0.31
+          key: "{{HOMEPAGE_VAR_PIHOLE_KEY}}"
 
     - Sunshine:
         icon: mdi-gamepad-variant
         href: https://sunshine.home.rozart.dev
         ping: 192.168.0.102
         description: Game streaming PC
+
+- Host Resources:
+    - Proxmox:
+        icon: proxmox.png
+        description: Hypervisor (192.168.0.40)
+        widget:
+          type: glances
+          url: http://192.168.0.40:61208
+          metric: info
+          version: 4
+          chart: false
+
+    - Dev Station:
+        icon: ghostty.png
+        description: VM 100 (192.168.0.41)
+        widget:
+          type: glances
+          url: http://192.168.0.41:61208
+          metric: info
+          version: 4
+          chart: false
+          expanded: true
+
+    - Docker Host:
+        icon: docker.png
+        description: VM 777 (192.168.0.46)
+        widget:
+          type: glances
+          url: http://192.168.0.46:61208
+          metric: info
+          version: 4
+          chart: false
+
+    - Media Host:
+        icon: jellyfin.png
+        description: VM 888 (192.168.0.49)
+        widget:
+          type: glances
+          url: http://192.168.0.49:61208
+          metric: info
+          version: 4
+          chart: false
+
+    - PC:
+        icon: mdi-desktop-tower
+        description: Dev Station (192.168.0.102)
+        widget:
+          type: glances
+          url: http://192.168.0.102:61208
+          metric: info
+          version: 4
+          chart: false
+
+    - Home Assistant:
+        icon: home-assistant.png
+        description: VM 555 (192.168.0.44)
+        widget:
+          type: glances
+          url: http://192.168.0.44:61208
+          metric: info
+          version: 4
+          chart: false
+
+    - Tailscale LXC:
+        icon: tailscale.png
+        description: LXC 444 (192.168.0.45)
+        widget:
+          type: glances
+          url: http://192.168.0.45:61208
+          metric: info
+          version: 4
+          chart: false
+
+    - Raspbox1:
+        icon: mdi-raspberry-pi
+        description: Pi-hole host (192.168.0.31)
+        widget:
+          type: glances
+          url: http://192.168.0.31:61208
+          metric: info
+          version: 4
+          chart: false
+
+    - Raspbox2:
+        icon: mdi-raspberry-pi
+        description: Raspberry Pi (192.168.0.32)
+        widget:
+          type: glances
+          url: http://192.168.0.32:61208
+          metric: info
+          version: 4
+          chart: false
 
 - Storage:
     - Synology NAS:
@@ -236,5 +388,10 @@
     - PBS:
         icon: proxmox.png
         href: https://pbs.home.rozart.dev
-        ping: 192.168.0.37
+        siteMonitor: https://192.168.0.37:8007
         description: Proxmox Backup Server
+        widget:
+          type: proxmoxbackupserver
+          url: https://192.168.0.37:8007
+          username: "{{HOMEPAGE_VAR_PBS_USER}}"
+          password: "{{HOMEPAGE_VAR_PBS_TOKEN}}"

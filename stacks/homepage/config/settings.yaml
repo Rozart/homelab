@@ -32,6 +32,10 @@ layout:
     style: row
     columns: 3
     header: true
+  Host Resources:
+    style: row
+    columns: 4
+    header: true
   Storage:
     style: row
     columns: 2

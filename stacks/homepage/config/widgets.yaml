@@ -1,9 +1,3 @@
-- resources:
-    cpu: true
-    memory: true
-    disk: /
-    label: Docker Host
-
 - uptimekuma:
     url: http://uptime-kuma:3001
     slug: "{{HOMEPAGE_VAR_UPTIMEKUMA_SLUG}}"
