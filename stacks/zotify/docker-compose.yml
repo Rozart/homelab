@@ -7,15 +7,13 @@ services:
     build: .
     container_name: zotify
     restart: unless-stopped
+    network_mode: host
     environment:
       TZ: ${TZ}
       SPOTIFY_SHOW_URL: ${SPOTIFY_SHOW_URL}
       CRON_SCHEDULE: ${CRON_SCHEDULE}
       EPISODE_LIMIT: ${EPISODE_LIMIT}
-    ports:
-      - "4381:4381" # OAuth callback for initial auth — can be removed after setup
+      OAUTH_REDIRECT_ADDRESS: ${OAUTH_REDIRECT_ADDRESS}
     volumes:
       - ./appdata/zotify:/root/.config/zotify
       - ${NAS_PATH}/media/podcasts:/podcasts
-    networks:
-      - home-network
