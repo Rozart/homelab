@@ -1,7 +1,7 @@
 FROM python:3.12-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ffmpeg cron inotify-tools && \
+    ffmpeg cron inotify-tools git && \
     rm -rf /var/lib/apt/lists/* && \
     pip install --no-cache-dir git+https://github.com/zotify-dev/zotify.git
 
