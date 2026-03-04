@@ -1,0 +1,19 @@
+networks:
+  home-network:
+    external: true
+
+services:
+  zotify:
+    build: .
+    container_name: zotify
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ}
+      SPOTIFY_SHOW_URL: ${SPOTIFY_SHOW_URL}
+      CRON_SCHEDULE: ${CRON_SCHEDULE}
+      EPISODE_LIMIT: ${EPISODE_LIMIT}
+    volumes:
+      - ./appdata/zotify:/root/.config/zotify
+      - ${NAS_PATH}/media/podcasts:/podcasts
+    networks:
+      - home-network
