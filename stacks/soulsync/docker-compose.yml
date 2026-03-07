@@ -42,6 +42,7 @@ services:
     image: boulderbadgedad/soulsync:latest
     container_name: soulsync
     entrypoint: /custom-entrypoint.sh
+    command: ["python", "web_server.py"]
     ports:
       - 8008:8008
       - 8888:8888
