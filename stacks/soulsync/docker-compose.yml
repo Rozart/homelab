@@ -41,12 +41,13 @@ services:
   soulsync:
     image: boulderbadgedad/soulsync:latest
     container_name: soulsync
-    user: ${PUID}:${PGID}
+    entrypoint: /custom-entrypoint.sh
     ports:
       - 8008:8008
       - 8888:8888
       - 8889:8889
     volumes:
+      - ./entrypoint.sh:/custom-entrypoint.sh:ro
       - ./appdata/soulsync/config:/app/config
       - ./appdata/soulsync/logs:/app/logs
       - soulsync_database:/app/data
