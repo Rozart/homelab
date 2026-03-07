@@ -34,7 +34,7 @@ layout:
     header: true
   Host Resources:
     style: row
-    columns: 4
+    columns: 3
     header: true
   Storage:
     style: row

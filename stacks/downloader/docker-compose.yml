@@ -20,9 +20,12 @@ services:
       - 8080:8080   # qBittorrent WebUI
       - 8085:8085   # SABnzbd WebUI
       - 8084:8084   # Shelfmark WebUI
+      - 5030:5030   # slskd WebUI
+      - 50300:50300 # slskd Soulseek listen port
     volumes:
       - /mnt/downloads/torrents:/data/downloads/torrents
       - /mnt/downloads/usenet:/data/downloads/usenet
+      - /mnt/downloads/soulseek:/data/downloads/soulseek
     restart: always
     networks:
       - home-network
@@ -105,6 +108,56 @@ services:
       - ${NAS_PATH}/calibre/ingest:/books
       - ${NAS_PATH}/media/audiobooks:/audiobooks
     restart: always
+
+  slskd:
+    image: slskd/slskd
+    container_name: slskd
+    network_mode: service:gluetun
+    depends_on:
+      - gluetun
+    environment:
+      SLSKD_REMOTE_CONFIGURATION: ${SLSKD_REMOTE_CONFIGURATION:-true}
+      SLSKD_SLSK_USERNAME: ${SLSKD_SLSK_USERNAME}
+      SLSKD_SLSK_PASSWORD: ${SLSKD_SLSK_PASSWORD}
+      SLSKD_SLSK_LISTEN_PORT: 50300
+      SLSKD_API_KEY: ${SLSKD_API_KEY}
+    volumes:
+      - ./appdata/slskd:/app
+      - /mnt/downloads/soulseek:/app/shares/downloads
+    restart: always
+
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+    volumes:
+      - ./appdata/lidarr:/config
+      - /mnt/downloads:/data/downloads
+      - ${NAS_PATH}/media/music:/data/media/music
+    ports:
+      - 8686:8686
+    restart: always
+    networks:
+      - home-network
+
+  soularr:
+    image: mrusse08/soularr:latest
+    container_name: soularr
+    user: "1000:1000"
+    environment:
+      TZ: ${TZ}
+      SCRIPT_INTERVAL: 300
+      LIDARR_API_KEY: ${LIDARR_API_KEY}
+      SLSKD_API_KEY: ${SLSKD_API_KEY}
+    volumes:
+      - ./appdata/soularr:/data
+      - /mnt/downloads/soulseek:/downloads
+    restart: always
+    networks:
+      - home-network
 
   byparr:
     image: ghcr.io/thephaseless/byparr:latest

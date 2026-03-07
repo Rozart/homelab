@@ -11,7 +11,7 @@
           enableBlocks: true
           enableNowPlaying: true
 
-    - Jellyseerr:
+    - Seerr:
         icon: jellyseerr.png
         href: https://requests.home.rozart.dev
         siteMonitor: http://192.168.0.49:5055
@@ -41,6 +41,18 @@
           url: http://calibre-web-automated:8083
           username: "{{HOMEPAGE_VAR_CALIBREWEB_USER}}"
           password: "{{HOMEPAGE_VAR_CALIBREWEB_PASS}}"
+
+    - SoulSync:
+        icon: mdi-music-box
+        href: https://soulsync.home.rozart.dev
+        siteMonitor: http://192.168.0.49:8008
+        description: Music discovery & downloads
+
+    - Navidrome:
+        icon: navidrome.png
+        href: https://navidrome.home.rozart.dev
+        siteMonitor: http://192.168.0.49:4533
+        description: Music streaming
 
     - Pinchflat:
         icon: pinchflat.png
@@ -122,6 +134,12 @@
           type: bazarr
           url: http://192.168.0.49:6767
           key: "{{HOMEPAGE_VAR_BAZARR_KEY}}"
+
+    - Lidarr:
+        icon: lidarr.png
+        href: https://lidarr.home.rozart.dev
+        siteMonitor: http://192.168.0.49:8686
+        description: Music management
 
     - Shelfmark:
         icon: mdi-bookshelf
@@ -283,6 +301,16 @@
         description: Game streaming PC
 
 - Host Resources:
+    - Home NAS:
+        icon: synology.png
+        description: NAS (192.168.0.36)
+        widget:
+          type: glances
+          url: http://192.168.0.36:61208
+          metric: info
+          version: 4
+          chart: false
+
     - Proxmox:
         icon: proxmox.png
         description: Hypervisor (192.168.0.40)
