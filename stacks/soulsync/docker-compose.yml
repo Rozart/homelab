@@ -32,6 +32,10 @@ services:
       - /mnt/downloads/soulseek:/app/shares/downloads
     environment:
       SLSKD_REMOTE_CONFIGURATION: true
+      SLSKD_SLSK_USERNAME: ${SLSKD_SLSK_USERNAME}
+      SLSKD_SLSK_PASSWORD: ${SLSKD_SLSK_PASSWORD}
+      SLSKD_SLSK_LISTEN_PORT: 50300
+      SLSKD_API_KEY: ${SLSKD_API_KEY}
     restart: always
 
   soulsync:
