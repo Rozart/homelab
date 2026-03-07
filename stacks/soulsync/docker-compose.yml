@@ -16,7 +16,7 @@ services:
       - 5030:5030    # slskd WebUI
       - 50300:50300  # slskd peer connections
     volumes:
-      - ${NAS_PATH}/media/music/downloads:/app/shares/downloads
+      - /mnt/downloads/soulseek:/app/shares/downloads
     restart: always
     networks:
       - home-network
@@ -29,7 +29,7 @@ services:
       - soulsync-vpn
     volumes:
       - ./appdata/slskd:/app
-      - ${NAS_PATH}/media/music/downloads:/app/shares/downloads
+      - /mnt/downloads/soulseek:/app/shares/downloads
     environment:
       SLSKD_REMOTE_CONFIGURATION: true
     restart: always
@@ -45,8 +45,8 @@ services:
       - ./appdata/soulsync/config:/app/config
       - ./appdata/soulsync/logs:/app/logs
       - soulsync_database:/app/data
-      - ${NAS_PATH}/media/music/downloads:/app/downloads
-      - ${NAS_PATH}/media/music/library:/app/Transfer
+      - /mnt/downloads/soulseek:/app/downloads
+      - ${NAS_PATH}/media/music:/app/Transfer
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
