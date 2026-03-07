@@ -159,6 +159,10 @@ slskd.home.rozart.dev {
     reverse_proxy 192.168.0.49:5030
 }
 
+navidrome.home.rozart.dev {
+    reverse_proxy 192.168.0.49:4533
+}
+
 linkwarden.home.rozart.dev {
     reverse_proxy localhost:3003
 }
