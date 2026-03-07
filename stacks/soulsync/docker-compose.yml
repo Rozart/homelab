@@ -41,6 +41,7 @@ services:
   soulsync:
     image: boulderbadgedad/soulsync:latest
     container_name: soulsync
+    user: ${PUID}:${PGID}
     ports:
       - 8008:8008
       - 8888:8888
