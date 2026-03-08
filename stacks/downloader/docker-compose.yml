@@ -123,7 +123,7 @@ services:
       SLSKD_API_KEY: ${SLSKD_API_KEY}
     volumes:
       - ./appdata/slskd:/app
-      - /mnt/downloads/soulseek:/app/shares/downloads
+      - /mnt/downloads/soulseek:/app/downloads
     restart: always
 
   lidarr:
