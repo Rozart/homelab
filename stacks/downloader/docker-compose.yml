@@ -127,7 +127,7 @@ services:
     restart: always
 
   lidarr:
-    image: lscr.io/linuxserver/lidarr:latest
+    image: lscr.io/linuxserver/lidarr:nightly
     container_name: lidarr
     environment:
       PUID: ${PUID}
@@ -139,22 +139,6 @@ services:
       - ${NAS_PATH}/media/music:/data/media/music
     ports:
       - 8686:8686
-    restart: always
-    networks:
-      - home-network
-
-  soularr:
-    image: mrusse08/soularr:latest
-    container_name: soularr
-    user: "1000:1000"
-    environment:
-      TZ: ${TZ}
-      SCRIPT_INTERVAL: 300
-      LIDARR_API_KEY: ${LIDARR_API_KEY}
-      SLSKD_API_KEY: ${SLSKD_API_KEY}
-    volumes:
-      - ./appdata/soularr:/data
-      - /mnt/downloads/soulseek:/downloads
     restart: always
     networks:
       - home-network
