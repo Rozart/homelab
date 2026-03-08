@@ -11,6 +11,9 @@ services:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
+      - ND_LASTFM_APIKEY=${ND_LASTFM_APIKEY}
+      - ND_LASTFM_SECRET=${ND_LASTFM_SECRET}
+      - ND_ENABLEEXTERNALSERVICES=true
     networks:
       - home-network
     restart: always
