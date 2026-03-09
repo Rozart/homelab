@@ -153,6 +153,8 @@ services:
       TZ: ${TZ}
       BEETSDIR: /config
       DISCOGS_TOKEN: ${DISCOGS_TOKEN}
+    ports:
+      - 8337:8337
     volumes:
       - ./appdata/beets:/config
       - ./scripts/beet-auto-import:/custom-services.d/beet-auto-import
