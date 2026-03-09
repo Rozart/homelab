@@ -144,6 +144,25 @@ services:
     networks:
       - home-network
 
+  beets:
+    image: lscr.io/linuxserver/beets:latest
+    container_name: beets
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+      BEETSDIR: /config
+      DISCOGS_TOKEN: ${DISCOGS_TOKEN}
+    volumes:
+      - ./appdata/beets:/config
+      - ./scripts/beet-auto-import:/custom-services.d/beet-auto-import
+      - /mnt/downloads/soulseek:/downloads/soulseek
+      - /mnt/downloads/usenet:/downloads/usenet
+      - ${NAS_PATH}/media/music:/music
+    restart: unless-stopped
+    networks:
+      - home-network
+
   byparr:
     image: ghcr.io/thephaseless/byparr:latest
     container_name: byparr

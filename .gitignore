@@ -22,11 +22,11 @@ stacks/recyclarr/appdata/recyclarr/configs/*
 stacks/caddy/appdata/*
 !stacks/caddy/appdata/Caddyfile
 
-# Keep Soularr config tracked
+# Keep Beets config tracked
 !stacks/downloader/appdata/
-!stacks/downloader/appdata/soularr/
-!stacks/downloader/appdata/soularr/config.ini
+!stacks/downloader/appdata/beets/
+!stacks/downloader/appdata/beets/config.yaml
 stacks/downloader/appdata/*
-!stacks/downloader/appdata/soularr/
-stacks/downloader/appdata/soularr/*
-!stacks/downloader/appdata/soularr/config.ini
+!stacks/downloader/appdata/beets/
+stacks/downloader/appdata/beets/*
+!stacks/downloader/appdata/beets/config.yaml

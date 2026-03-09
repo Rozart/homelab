@@ -1,0 +1,79 @@
+directory: /music
+library: /config/library.db
+
+import:
+  write: yes
+  copy: no
+  move: yes
+  resume: yes
+  quiet: yes
+  timid: no
+  log: /config/import.log
+  bell: no
+
+# Match Lidarr naming: ({Release Year}) {Album Title}/{track:00} {Track Title}
+paths:
+  default: $albumartist/($year) $album/%if{$disctotal > 1,CD %right(00$disc,2)/}%right(00$track,2) $title
+  comp: Various Artists/($year) $album/%if{$disctotal > 1,CD %right(00$disc,2)/}%right(00$track,2) $title
+  singleton: Non-Album/$albumartist - $title
+
+# Lidarr-style colon replacement (smart replace: colon to space-dash)
+replace:
+  ':': ' -'
+  '[\\/]': '-'
+  '^\.': '_'
+  '[\x00-\x1f]': '_'
+  '\s+$': ''
+  '^\s+': ''
+  '\.$': ''
+
+per_disc_numbering: yes
+
+plugins:
+  - discogs
+  - beatport
+  - chroma
+  - fetchart
+  - embedart
+  - lastgenre
+  - scrub
+  - missing
+  - duplicates
+  - fromfilename
+
+discogs:
+  source_weight: 0.5
+  index_tracks: yes
+
+musicbrainz:
+  searchlimit: 20
+
+match:
+  strong_rec_thresh: 0.1
+  medium_rec_thresh: 0.25
+  max_rec:
+    missing_tracks: medium
+    unmatched_tracks: medium
+  distance_weights:
+    album: 3.0
+    artist: 3.0
+    totaltracks: 2.0
+    missing_tracks: 0.9
+    unmatched_tracks: 0.6
+
+fetchart:
+  auto: yes
+  minwidth: 300
+  sources: coverart musicbrainz itunes amazon albumart
+
+embedart:
+  auto: yes
+  remove_art_file: no
+
+lastgenre:
+  auto: yes
+  count: 3
+  source: album
+
+scrub:
+  auto: yes
