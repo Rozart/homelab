@@ -6,7 +6,7 @@ import:
   copy: no
   move: yes
   resume: yes
-  quiet: yes
+  quiet_fallback: asis
   timid: no
   log: /config/import.log
   bell: no
@@ -49,16 +49,16 @@ musicbrainz:
   searchlimit: 20
 
 match:
-  strong_rec_thresh: 0.1
-  medium_rec_thresh: 0.25
+  strong_rec_thresh: 0.14
+  medium_rec_thresh: 0.35
   max_rec:
-    missing_tracks: medium
+    missing_tracks: low
     unmatched_tracks: medium
   distance_weights:
     album: 3.0
     artist: 3.0
-    totaltracks: 2.0
-    missing_tracks: 0.9
+    totaltracks: 1.0
+    missing_tracks: 0.6
     unmatched_tracks: 0.6
 
 fetchart:
