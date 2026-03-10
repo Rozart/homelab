@@ -37,6 +37,23 @@ services:
     networks:
       - home-network
 
+  lidarr:
+    image: lscr.io/linuxserver/lidarr:nightly
+    container_name: lidarr
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+    volumes:
+      - ./appdata/lidarr:/config
+      - /mnt/downloads:/data/downloads
+      - ${NAS_PATH}/media/music:/data/media/music
+    ports:
+      - 8686:8686
+    restart: always
+    networks:
+      - home-network
+
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
