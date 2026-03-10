@@ -46,6 +46,7 @@ services:
       TZ: ${TZ}
     volumes:
       - ./appdata/lidarr:/config
+      - ./appdata/lidarr/custom-cont-init.d:/custom-cont-init.d:ro
       - /mnt/downloads:/data/downloads
       - ${NAS_PATH}/media/music:/data/media/music
     ports:

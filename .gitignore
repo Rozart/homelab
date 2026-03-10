@@ -30,3 +30,12 @@ stacks/downloader/appdata/*
 !stacks/downloader/appdata/beets/
 stacks/downloader/appdata/beets/*
 !stacks/downloader/appdata/beets/config.yaml
+
+# Keep Lidarr custom-cont-init.d tracked
+!stacks/media-managers/appdata/
+!stacks/media-managers/appdata/lidarr/
+!stacks/media-managers/appdata/lidarr/custom-cont-init.d/
+stacks/media-managers/appdata/*
+!stacks/media-managers/appdata/lidarr/
+stacks/media-managers/appdata/lidarr/*
+!stacks/media-managers/appdata/lidarr/custom-cont-init.d/
