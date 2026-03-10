@@ -158,9 +158,11 @@ services:
     volumes:
       - ./appdata/beets:/config
       - ./scripts/beet-auto-import.sh:/config/custom-scripts/beet-auto-import.sh
+      - ./scripts/beet-retag-bad-albums.sh:/config/custom-scripts/beet-retag-bad-albums.sh
       - ./scripts/beet-auto-import-cron:/etc/cron.d/beet-auto-import
       - /mnt/downloads/soulseek:/downloads/soulseek
       - /mnt/downloads/usenet:/downloads/usenet
+      - /mnt/downloads/torrents:/downloads/torrents
       - ${NAS_PATH}/media/music:/music
     restart: unless-stopped
     networks:

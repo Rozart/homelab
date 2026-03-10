@@ -2,7 +2,12 @@
 
 echo "[beet-auto-import] $(date) - Scanning for completed downloads..."
 
-for dir in /downloads/soulseek /downloads/usenet; do
+# Scan music-related download directories (not audiobooks/ebooks)
+# Soulseek: everything is music, scan root
+# Usenet/Torrents: only scan music category subdirs, plus root for uncategorized
+SCAN_DIRS="/downloads/soulseek /downloads/usenet/music /downloads/usenet/lidarr /downloads/torrents/music /downloads/torrents/lidarr"
+
+for dir in $SCAN_DIRS; do
     if [ -d "$dir" ]; then
         find "$dir" -mindepth 1 -maxdepth 1 -type d -mmin +30 2>/dev/null | while read -r album_dir; do
             # Skip directories with no audio files
@@ -24,7 +29,7 @@ for dir in /downloads/soulseek /downloads/usenet; do
 done
 
 # Clean up singleton audio files (loose .flac/.mp3 not in album dirs)
-for dir in /downloads/soulseek /downloads/usenet; do
+for dir in $SCAN_DIRS; do
     if [ -d "$dir" ]; then
         find "$dir" -maxdepth 1 -type f \( -name '*.flac' -o -name '*.mp3' -o -name '*.ogg' -o -name '*.m4a' \) -mmin +30 2>/dev/null | while read -r file; do
             echo "[beet-auto-import] Importing singleton: $file"
