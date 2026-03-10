@@ -10,6 +10,7 @@ import:
   timid: no
   log: /config/import.log
   bell: no
+  duplicate_action: skip
 
 # Match Lidarr naming: ({Release Year}) {Album Title}/{track:00} {Track Title}
 paths:

@@ -12,6 +12,19 @@ for dir in /downloads/soulseek /downloads/usenet; do
             echo "[beet-auto-import] Importing: $album_dir"
             beet import -q "$album_dir" 2>&1
         done
+
+        # Clean up empty directories left after successful moves
+        find "$dir" -mindepth 1 -type d -empty -delete 2>/dev/null
+    fi
+done
+
+# Clean up singleton audio files (loose .flac/.mp3 not in album dirs)
+for dir in /downloads/soulseek /downloads/usenet; do
+    if [ -d "$dir" ]; then
+        find "$dir" -maxdepth 1 -type f \( -name '*.flac' -o -name '*.mp3' -o -name '*.ogg' -o -name '*.m4a' \) -mmin +30 2>/dev/null | while read -r file; do
+            echo "[beet-auto-import] Importing singleton: $file"
+            beet import -q -s "$file" 2>&1
+        done
     fi
 done
 
