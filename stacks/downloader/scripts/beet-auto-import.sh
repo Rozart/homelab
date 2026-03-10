@@ -13,8 +13,13 @@ for dir in /downloads/soulseek /downloads/usenet; do
             beet import -q "$album_dir" 2>&1
         done
 
-        # Clean up empty directories left after successful moves
-        find "$dir" -mindepth 1 -type d -empty -delete 2>/dev/null
+        # Clean up directories with no audio files remaining (only leftover .nfo, .jpg, etc.)
+        find "$dir" -mindepth 1 -maxdepth 1 -type d -mmin +30 2>/dev/null | while read -r album_dir; do
+            if [ -z "$(find "$album_dir" -name '*.flac' -o -name '*.mp3' -o -name '*.ogg' -o -name '*.m4a' 2>/dev/null | head -1)" ]; then
+                echo "[beet-auto-import] Cleaning up: $album_dir"
+                rm -rf "$album_dir"
+            fi
+        done
     fi
 done
 
