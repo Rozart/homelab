@@ -22,61 +22,64 @@ run_cmd() {
 echo "=== Step 1: Merge case-duplicate artist folders ==="
 echo ""
 
-# Find case-insensitive duplicates
+# Find case-insensitive duplicates (use python for proper unicode lowercasing)
 declare -A seen
 while IFS= read -r artist_dir; do
     name=$(basename "$artist_dir")
-    lower=$(echo "$name" | tr '[:upper:]' '[:lower:]')
+    lower=$(python3 -c "print('$name'.lower())" 2>/dev/null || echo "$name" | tr '[:upper:]' '[:lower:]')
 
     if [[ -n "${seen[$lower]}" ]]; then
         canonical="${seen[$lower]}"
         echo "Merging: '$name' → '$(basename "$canonical")'"
 
-        # Move all subdirectories from duplicate into canonical
         find "$artist_dir" -mindepth 1 -maxdepth 1 -type d | while IFS= read -r subdir; do
             target="$canonical/$(basename "$subdir")"
             if [[ -d "$target" ]]; then
-                echo "  Skipping (already exists): $(basename "$subdir")"
+                echo "  Duplicate, removing nested: $(basename "$subdir")"
+                run_cmd rm -rf "$subdir"
             else
                 run_cmd mv "$subdir" "$canonical/"
             fi
         done
 
-        # Move any loose files
         find "$artist_dir" -mindepth 1 -maxdepth 1 -type f | while IFS= read -r file; do
-            run_cmd mv "$file" "$canonical/"
+            target="$canonical/$(basename "$file")"
+            if [[ -e "$target" ]]; then
+                run_cmd rm -f "$file"
+            else
+                run_cmd mv "$file" "$canonical/"
+            fi
         done
 
-        # Remove the now-empty duplicate directory
-        run_cmd rmdir "$artist_dir" 2>/dev/null || echo "  Warning: '$name' not empty after merge"
+        run_cmd rm -rf "$artist_dir" 2>/dev/null
         echo ""
     else
         seen[$lower]="$artist_dir"
     fi
 done < <(find "$MUSIC_DIR" -mindepth 1 -maxdepth 1 -type d | sort)
 
-echo "=== Step 2: Fix nested 'Artist/Artist' directories (move contents up) ==="
+echo "=== Step 2: Fix nested 'Artist/Artist' directories ==="
 echo ""
 
 find "$MUSIC_DIR" -mindepth 2 -maxdepth 2 -type d | while IFS= read -r subdir; do
     parent=$(basename "$(dirname "$subdir")")
     child=$(basename "$subdir")
 
-    # Match exact "Artist/Artist" (nested dir with same name as parent)
     if [[ "$child" == "$parent" ]]; then
         echo "Unnesting: $parent/$child/"
 
-        # Move all contents up one level
         find "$subdir" -mindepth 1 -maxdepth 1 | while IFS= read -r item; do
             target="$(dirname "$subdir")/$(basename "$item")"
             if [[ -e "$target" ]]; then
-                echo "  Skipping (already exists): $(basename "$item")"
+                echo "  Exists at parent, removing nested copy: $(basename "$item")"
+                run_cmd rm -rf "$item"
             else
+                echo "  Moving up: $(basename "$item")"
                 run_cmd mv "$item" "$(dirname "$subdir")/"
             fi
         done
 
-        run_cmd rmdir "$subdir" 2>/dev/null || echo "  Warning: '$child' not empty after unnesting"
+        run_cmd rm -rf "$subdir" 2>/dev/null
         echo ""
     fi
 done
@@ -88,7 +91,6 @@ find "$MUSIC_DIR" -mindepth 2 -maxdepth 2 -type d | while IFS= read -r subdir; d
     parent=$(basename "$(dirname "$subdir")")
     child=$(basename "$subdir")
 
-    # Match "Artist/Artist - Album" pattern (but not self-titled or year-prefixed)
     if [[ "$child" == "$parent - "* ]]; then
         album_name="${child#"$parent - "}"
         new_path="$(dirname "$subdir")/$album_name"
@@ -96,7 +98,8 @@ find "$MUSIC_DIR" -mindepth 2 -maxdepth 2 -type d | while IFS= read -r subdir; d
         echo "Renaming: $parent/$child → $parent/$album_name"
 
         if [[ -e "$new_path" ]]; then
-            echo "  Skipping (target already exists)"
+            echo "  Target exists, removing duplicate"
+            run_cmd rm -rf "$subdir"
         else
             run_cmd mv "$subdir" "$new_path"
         fi

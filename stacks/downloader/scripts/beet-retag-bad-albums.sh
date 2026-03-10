@@ -56,8 +56,8 @@ while IFS= read -r album_dir; do
     if $DRY_RUN; then
         echo "  [dry-run] Would run: beet import \"$album_dir\""
     else
-        # Interactive import - lets you confirm/skip each match
-        beet import "$album_dir" 2>&1 | tee -a "$LOG_FILE"
+        # Quiet import - auto-accept strong matches, keep as-is otherwise
+        beet import -q "$album_dir" 2>&1 | tee -a "$LOG_FILE"
         retag_count=$((retag_count + 1))
     fi
 
