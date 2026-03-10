@@ -1,0 +1,1 @@
+*/30 * * * * /config/custom-scripts/beet-auto-import.sh >> /config/import.log 2>&1

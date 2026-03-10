@@ -157,7 +157,8 @@ services:
       - 8337:8337
     volumes:
       - ./appdata/beets:/config
-      - ./scripts/beet-auto-import:/custom-services.d/beet-auto-import
+      - ./scripts/beet-auto-import.sh:/config/custom-scripts/beet-auto-import.sh
+      - ./scripts/beet-auto-import-cron:/etc/cron.d/beet-auto-import
       - /mnt/downloads/soulseek:/downloads/soulseek
       - /mnt/downloads/usenet:/downloads/usenet
       - ${NAS_PATH}/media/music:/music
