@@ -31,7 +31,6 @@ per_disc_numbering: yes
 
 plugins:
   - discogs
-  - beatport
   - chroma
   - fetchart
   - embedart
