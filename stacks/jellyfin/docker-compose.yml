@@ -15,6 +15,8 @@ services:
       - ${NAS_PATH}/media/movies:/data/media/movies:ro
       - ${NAS_PATH}/media/tv:/data/media/tv:ro
       - ${NAS_PATH}/media/youtube:/data/media/youtube:ro
+    devices:
+      - /dev/dri/renderD128:/dev/dri/renderD128
     ports:
       - 8096:8096
     restart: always
